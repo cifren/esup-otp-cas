@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jasig.cas</groupId>
+    <groupId>org.apereo.cas</groupId>
     <artifactId>cas-overlay</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
@@ -12,8 +12,12 @@
         <plugins>
             <plugin>
                 <groupId>com.rimerosolutions.maven.plugins</groupId>
-          	<artifactId>wrapper-maven-plugin</artifactId>
-          	<version>0.0.4</version>
+          		<artifactId>wrapper-maven-plugin</artifactId>
+          		<version>0.0.4</version>
+          		<configuration>
+          			<verifyDownload>true</verifyDownload>
+	    			<checksumAlgorithm>MD5</checksumAlgorithm>
+				</configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -21,49 +25,24 @@
                 <version>2.6</version>
                 <configuration>
                     <warName>cas</warName>
+			        <failOnMissingWebXml>false</failOnMissingWebXml>
+			        <recompressZippedFiles>false</recompressZippedFiles>
+			        <archive>
+			        	<compress>false</compress>
+						<manifestFile>${project.build.directory}/war/work/org.apereo.cas/cas-server-webapp/META-INF/MANIFEST.MF</manifestFile> 
+					</archive>
                     <overlays>
                         <overlay>
-                            <groupId>org.jasig.cas</groupId>
+                            <groupId>org.apereo.cas</groupId>
                             <artifactId>cas-server-webapp</artifactId>
-                            <excludes>
-                                <exclude>WEB-INF/cas.properties</exclude>
-                                <exclude>WEB-INF/classes/log4j2.xml</exclude>
-                            </excludes>
                         </overlay>
                     </overlays>
-                     <failOnMissingWebXml>false</failOnMissingWebXml>  
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${maven-jetty-plugin.version}</version>
-                <configuration>
-                    <jettyXml>${basedir}/etc/jetty/jetty.xml,${basedir}/etc/jetty/jetty-ssl.xml,${basedir}/etc/jetty/jetty-https.xml</jettyXml>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>org.eclipse.jetty.annotations.maxWait</name>
-                            <value>240</value>
-                        </systemProperty>
-                    </systemProperties>
-                    <webApp>
-                        <contextPath>/cas</contextPath>
-                        <overrideDescriptor>${basedir}/etc/jetty/web.xml</overrideDescriptor>
-                    </webApp>
-	                <webAppConfig>
-	                    <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
-	                </webAppConfig>
-                    <jvmArgs>-Dlog4j.configurationFile=/etc/cas/log4j2.xml -Xdebug -Xrunjdwp:transport=dt_socket,address=5000,server=y,suspend=n</jvmArgs>
-                </configuration>
             </plugin>
         </plugins>
         <finalName>cas</finalName>
@@ -71,34 +50,33 @@
 
     <dependencies>
     	<dependency>
-            <groupId>org.jasig.cas</groupId>
-            <artifactId>cas-server-core</artifactId>
-            <version>${cas.version}</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160212</version>
         </dependency>
         <dependency>
-            <groupId>org.jasig.cas</groupId>
+            <groupId>org.apereo.cas</groupId>
             <artifactId>cas-server-core-authentication</artifactId>
             <version>${cas.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jasig.cas</groupId>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-core-webflow</artifactId>
+            <version>${cas.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apereo.cas</groupId>
             <artifactId>cas-server-webapp</artifactId>
             <version>${cas.version}</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20160212</version>
-        </dependency>
     </dependencies>
 
     <properties>
-        <cas.version>4.2.1</cas.version>
-        <maven-jetty-plugin.version>9.3.6.v20151106</maven-jetty-plugin.version>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <cas.version>5.0.0.M2</cas.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
