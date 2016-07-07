@@ -1,24 +1,10 @@
 CAS Overlay Template
 ============================
 
-Generic CAS maven war overlay to exercise the latest versions of CAS. This overlay could be freely used as a starting template for local CAS maven war overlays. The CAS services management overlay is available [here](https://github.com/Jasig/cas-services-management-overlay).
-
-# Versions
-```xml
-<cas.version>5.0.0</cas.version>
-```
+Generic CAS version 5 maven war overlay using esup-otp-api
 
 # Requirements
 * JDK 1.8+
-
-# Configuration
-
-The `etc` directory contains the configuration files that need to be copied to `/etc/cas`.
-
-Current files are:
-
-* `cas.properties`
-* `log4j2.xml`
 
 # Build
 
@@ -51,3 +37,5 @@ CAS will be available at:
 
 ## External
 Deploy resultant `target/cas.war` to a Servlet container of choice.
+
+esup-otp-api must be running to work, if you use CAS in a secure mode (HTTPS) you have to use a reverse proxy between http://localhost:3000 and https://localhost:3443
