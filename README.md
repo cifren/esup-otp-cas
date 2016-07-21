@@ -3,8 +3,14 @@ CAS Overlay Template
 
 Generic CAS version 5 maven war overlay using esup-otp-api
 
+Official documentation : https://apereo.github.io/cas/development/
+
 # Requirements
 * JDK 1.8+
+
+# Configuration
+
+configuration files is src/main/webapp/WEB-INF/classes/application.properties
 
 # Build
 
