@@ -4,6 +4,6 @@
   "id": 10000004,
   "multifactorPolicy" : {
     "@class" : "org.apereo.cas.services.DefaultRegisteredServiceMultifactorPolicy",
-    "multifactorAuthenticationProviders" : [ "java.util.LinkedHashSet", [ "mfa-gauth" ] ]
+    "multifactorAuthenticationProviders" : [ "java.util.LinkedHashSet", [ "mfa-esupotp" ] ]
   }
 }

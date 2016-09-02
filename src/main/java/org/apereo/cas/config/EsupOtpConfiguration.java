@@ -5,7 +5,7 @@ import org.apereo.cas.CentralAuthenticationService;
 import org.apereo.cas.adaptors.esupotp.EsupOtpAuthenticationHandler;
 import org.apereo.cas.adaptors.esupotp.EsupOtpAuthenticationMetaDataPopulator;
 import org.apereo.cas.adaptors.esupotp.EsupOtpMultifactorAuthenticationProvider;
-//import org.apereo.cas.adaptors.gauth.web.flow.GoogleAccountCheckRegistrationAction;
+import org.apereo.cas.adaptors.esupotp.web.flow.EsupOtpGetTransportsAction;
 import org.apereo.cas.adaptors.esupotp.web.flow.EsupOtpAuthenticationWebflowAction;
 import org.apereo.cas.adaptors.esupotp.web.flow.EsupOtpAuthenticationWebflowEventResolver;
 import org.apereo.cas.adaptors.esupotp.web.flow.EsupOtpMultifactorWebflowConfigurer;
@@ -139,15 +139,11 @@ public class EsupOtpConfiguration {
 		return a;
 	}
 
-	/*
-	 * @Bean
-	 * 
-	 * @RefreshScope public Action googleAccountRegistrationAction() { final
-	 * GoogleAccountCheckRegistrationAction a = new
-	 * GoogleAccountCheckRegistrationAction();
-	 * a.setGoogleAuthenticatorInstance(googleAuthenticatorInstance()); return
-	 * a; }
-	 */
+	  @Bean
+	  @RefreshScope public Action esupotpGetTransportsAction() {
+		  final EsupOtpGetTransportsAction a = new EsupOtpGetTransportsAction();
+		  return a;
+	  }
 
 	@Bean
 	public CasWebflowEventResolver esupotpAuthenticationWebflowEventResolver() {
